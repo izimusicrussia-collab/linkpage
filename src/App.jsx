@@ -85,7 +85,8 @@ async function publishToGH(gh, data) {
 }
 
 export default function App() {
-  const [data, setData] = useState(() => loadLS() || FALLBACK);
+  const [serverData, setServerData] = useState(null);
+  const [adminData, setAdminData] = useState(() => loadLS() || null);
   const [loaded, setLoaded] = useState(false);
   const [route, setRoute] = useState(ghash);
   const [logged, setLogged] = useState(false);
@@ -101,22 +102,32 @@ export default function App() {
   const [showGH, setShowGH] = useState(false);
   const [hasChanges, setHasChanges] = useState(false);
 
-  // Load data.json on first mount (source of truth for visitors)
+  // Visitors ALWAYS see serverData. Admin sees adminData (local draft).
+  const data = logged ? (adminData || serverData || FALLBACK) : (serverData || FALLBACK);
+
+  const setData = (valOrFn) => {
+    setAdminData(prev => {
+      const base = prev || serverData || FALLBACK;
+      const next = typeof valOrFn === 'function' ? valOrFn(base) : valOrFn;
+      saveLS(next);
+      return next;
+    });
+  };
+
+  // Always load data.json from server (source of truth for all visitors)
   useEffect(() => {
     fetch('/data.json?' + Date.now())
       .then(r => r.json())
       .then(d => {
         if (d && d.profiles) {
-          // If no local edits, use server data
-          const local = loadLS();
-          if (!local) { setData(d); saveLS(d); }
-          setLoaded(true);
+          setServerData(d);
+          // If admin has no local draft yet, init from server
+          if (!loadLS()) { setAdminData(d); saveLS(d); }
         }
+        setLoaded(true);
       })
       .catch(() => setLoaded(true));
   }, []);
-
-  useEffect(() => { saveLS(data); }, [data]);
   useEffect(() => { saveGH(gh); }, [gh]);
   useEffect(() => {
     const fn = () => setRoute(ghash());
@@ -147,7 +158,14 @@ export default function App() {
   const moveBlock = (pid, bid, dir) => { setProfiles(ps => ps.map(p => { if (p.id !== pid) return p; const bl = [...p.blocks]; const i = bl.findIndex(b => b.id === bid); if (dir < 0 && i > 0) [bl[i], bl[i-1]] = [bl[i-1], bl[i]]; if (dir > 0 && i < bl.length - 1) [bl[i], bl[i+1]] = [bl[i+1], bl[i]]; return { ...p, blocks: bl }; })); };
   const readFile = (cb) => (e) => { const f = e.target.files?.[0]; if (!f) return; const r = new FileReader(); r.onload = (ev) => cb(ev.target.result); r.readAsDataURL(f); e.target.value = ''; };
 
-  const doLogin = () => { if (pw === ADMIN_PW) { setLogged(true); setPw(''); setPwErr(''); } else setPwErr('Неверный пароль'); };
+  const doLogin = () => {
+    if (pw === ADMIN_PW) {
+      // When logging in, start admin draft from latest server data
+      if (serverData && !adminData) { setAdminData(serverData); saveLS(serverData); }
+      else if (serverData && adminData && !hasChanges) { setAdminData(serverData); saveLS(serverData); }
+      setLogged(true); setPw(''); setPwErr('');
+    } else setPwErr('Неверный пароль');
+  };
   const doLogout = () => { setLogged(false); setEditId(null); setEditBlock(null); go(''); };
 
   const doPublish = async () => {
@@ -155,6 +173,7 @@ export default function App() {
     setPublishing(true);
     try {
       await publishToGH(gh, data);
+      setServerData(data); // sync server view immediately
       setHasChanges(false);
       flash('✅ Опубликовано! Сайт обновится через ~30 сек');
     } catch (e) {
@@ -169,7 +188,8 @@ export default function App() {
   const isAdmin = route === 'admin';
   const curProfile = !isAdmin ? profiles.find(p => p.slug === route) : null;
   const showHome = !isAdmin && !curProfile && route === '';
-  const show404 = !isAdmin && !curProfile && route !== '';
+  const show404 = !isAdmin && !curProfile && route !== '' && loaded;
+  const showLoading = !isAdmin && !curProfile && route !== '' && !loaded;
   const ep = editP;
   const et = ep ? TH(ep.theme) : THEMES.midnight;
 
@@ -220,6 +240,13 @@ export default function App() {
           ))}
           {profiles.length === 0 && <p style={{ color: 'rgba(255,255,255,0.3)' }}>Пока нет профилей</p>}
           <button onClick={() => go('admin')} style={{ marginTop: 30, padding: '12px 28px', background: '#6c5ce7', border: 'none', borderRadius: 12, color: '#fff', fontSize: 15, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>⚙ Админка</button>
+        </div>
+      )}
+
+      {/* ═══ LOADING ═══ */}
+      {showLoading && (
+        <div style={{ minHeight: '100vh', background: '#0a0a1a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Outfit',sans-serif" }}>
+          <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: 16, animation: 'pulse 1.5s infinite' }}>Загрузка...</div>
         </div>
       )}
 
