@@ -9,14 +9,14 @@ import { useState, useEffect, useRef } from 'react';
 const ADMIN_PW = 'admin123';
 
 const THEMES = {
-  midnight: { n: 'Полночь', bg: 'linear-gradient(135deg,#0a0a1a,#1a1a3e,#0d0d2b)', c: 'rgba(255,255,255,0.07)', cb: 'rgba(255,255,255,0.12)', t: '#fff', ts: 'rgba(255,255,255,0.6)', a: '#6c5ce7' },
-  ocean:    { n: 'Океан',   bg: 'linear-gradient(135deg,#0c1b33,#1a3a5c,#0d2137)', c: 'rgba(255,255,255,0.08)', cb: 'rgba(100,200,255,0.15)', t: '#fff', ts: 'rgba(255,255,255,0.6)', a: '#0984e3' },
-  sunset:   { n: 'Закат',   bg: 'linear-gradient(135deg,#2d1b3d,#4a1942,#1a0a2e)', c: 'rgba(255,255,255,0.08)', cb: 'rgba(255,100,150,0.15)', t: '#fff', ts: 'rgba(255,255,255,0.6)', a: '#e84393' },
-  forest:   { n: 'Лес',     bg: 'linear-gradient(135deg,#0a1a0f,#1a3a1f,#0d2512)', c: 'rgba(255,255,255,0.07)', cb: 'rgba(100,255,150,0.12)', t: '#fff', ts: 'rgba(255,255,255,0.6)', a: '#00b894' },
-  light:    { n: 'Светлая', bg: 'linear-gradient(135deg,#f5f7fa,#e8ecf1,#f0f2f5)', c: 'rgba(255,255,255,0.9)',  cb: 'rgba(0,0,0,0.08)',       t: '#1a1a2e', ts: 'rgba(0,0,0,0.5)',      a: '#6c5ce7' },
-  neon:     { n: 'Неон',    bg: 'linear-gradient(135deg,#000,#0a0a0a,#050510)',      c: 'rgba(255,255,255,0.04)', cb: 'rgba(0,255,136,0.2)',     t: '#fff', ts: 'rgba(255,255,255,0.5)', a: '#00ff88' },
-  cream:    { n: 'Крем',    bg: 'linear-gradient(135deg,#fdf6e3,#f5e6cc,#faf0d7)',  c: 'rgba(255,255,255,0.8)',  cb: 'rgba(139,90,43,0.12)',    t: '#3d2c1e', ts: 'rgba(61,44,30,0.6)',  a: '#d4830e' },
-  arctic:   { n: 'Арктика', bg: 'linear-gradient(135deg,#e8f4f8,#d1ecf4,#e0f0f6)',  c: 'rgba(255,255,255,0.85)', cb: 'rgba(0,120,180,0.1)',     t: '#1a3a4a', ts: 'rgba(26,58,74,0.55)', a: '#0078b4' },
+  midnight: { n:'Полночь', bg:'linear-gradient(135deg,#0a0a1a,#1a1a3e,#0d0d2b)', c:'rgba(255,255,255,0.07)', cb:'rgba(255,255,255,0.12)', t:'#fff', ts:'rgba(255,255,255,0.6)', a:'#6c5ce7' },
+  ocean:    { n:'Океан',   bg:'linear-gradient(135deg,#0c1b33,#1a3a5c,#0d2137)', c:'rgba(255,255,255,0.08)', cb:'rgba(100,200,255,0.15)', t:'#fff', ts:'rgba(255,255,255,0.6)', a:'#0984e3' },
+  sunset:   { n:'Закат',   bg:'linear-gradient(135deg,#2d1b3d,#4a1942,#1a0a2e)', c:'rgba(255,255,255,0.08)', cb:'rgba(255,100,150,0.15)', t:'#fff', ts:'rgba(255,255,255,0.6)', a:'#e84393' },
+  forest:   { n:'Лес',     bg:'linear-gradient(135deg,#0a1a0f,#1a3a1f,#0d2512)', c:'rgba(255,255,255,0.07)', cb:'rgba(100,255,150,0.12)', t:'#fff', ts:'rgba(255,255,255,0.6)', a:'#00b894' },
+  light:    { n:'Светлая', bg:'linear-gradient(135deg,#f5f7fa,#e8ecf1,#f0f2f5)', c:'rgba(255,255,255,0.9)',  cb:'rgba(0,0,0,0.08)',       t:'#1a1a2e', ts:'rgba(0,0,0,0.5)',      a:'#6c5ce7' },
+  neon:     { n:'Неон',    bg:'linear-gradient(135deg,#000,#0a0a0a,#050510)',      c:'rgba(255,255,255,0.04)', cb:'rgba(0,255,136,0.2)',     t:'#fff', ts:'rgba(255,255,255,0.5)', a:'#00ff88' },
+  cream:    { n:'Крем',    bg:'linear-gradient(135deg,#fdf6e3,#f5e6cc,#faf0d7)',  c:'rgba(255,255,255,0.8)',  cb:'rgba(139,90,43,0.12)',    t:'#3d2c1e', ts:'rgba(61,44,30,0.6)',  a:'#d4830e' },
+  arctic:   { n:'Арктика', bg:'linear-gradient(135deg,#e8f4f8,#d1ecf4,#e0f0f6)',  c:'rgba(255,255,255,0.85)', cb:'rgba(0,120,180,0.1)',     t:'#1a3a4a', ts:'rgba(26,58,74,0.55)', a:'#0078b4' },
 };
 
 const ICONS = {
@@ -35,11 +35,8 @@ const ICONS = {
   music:     { c:'#E91E63', l:'Музыка',    p:'M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z' },
 };
 
-const svg = (n, s=22) => `<svg viewBox="0 0 24 24" fill="currentColor" width="${s}" height="${s}"><path d="${(ICONS[n]||ICONS.link).p}"/></svg>`;
+const mksvg = (n, s=22) => `<svg viewBox="0 0 24 24" fill="currentColor" width="${s}" height="${s}"><path d="${(ICONS[n]||ICONS.link).p}"/></svg>`;
 const TH = (k) => THEMES[k] || THEMES.midnight;
-const BlockIc = ({ b, size=40, r=10 }) => b.customIcon
-  ? <div style={{ width: size, height: size, borderRadius: r, overflow: 'hidden', flexShrink: 0 }}><img src={b.customIcon} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>
-  : <div style={{ width: size, height: size, borderRadius: r, background: (ICONS[b.icon]||ICONS.link).c, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#fff' }} dangerouslySetInnerHTML={{ __html: svg(b.icon, Math.round(size*0.55)) }} />;
 
 const LS_KEY = 'lp_v5';
 const load = () => { try { const d = localStorage.getItem(LS_KEY); return d ? JSON.parse(d) : null; } catch { return null; } };
@@ -63,11 +60,24 @@ const INIT = {
   ],
 };
 
-const hash = () => window.location.hash.replace(/^#\/?/, '');
+const ghash = () => window.location.hash.replace(/^#\/?/, '');
+
+// ── Icon component (outside App to avoid remount) ──
+function BIco({ b, size, radius }) {
+  const sz = size || 40;
+  const r = radius || 10;
+  if (b.customIcon) return <div style={{ width: sz, height: sz, borderRadius: r, overflow: 'hidden', flexShrink: 0 }}><img src={b.customIcon} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>;
+  const ic = ICONS[b.icon] || ICONS.link;
+  return <div style={{ width: sz, height: sz, borderRadius: r, background: ic.c, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#fff' }} dangerouslySetInnerHTML={{ __html: mksvg(b.icon, Math.round(sz * 0.55)) }} />;
+}
+
+// Styles (outside App)
+const inpS = { width: '100%', padding: '10px 12px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 9, color: '#fff', fontSize: 14, fontFamily: 'inherit' };
+const btnSFn = (bg) => ({ background: bg || 'rgba(255,255,255,0.1)', border: 'none', color: '#fff', padding: '7px 12px', borderRadius: 8, cursor: 'pointer', fontSize: 12, fontFamily: 'inherit' });
 
 export default function App() {
   const [data, setData] = useState(() => load() || INIT);
-  const [route, setRoute] = useState(hash);
+  const [route, setRoute] = useState(ghash);
   const [logged, setLogged] = useState(false);
   const [pw, setPw] = useState('');
   const [pwErr, setPwErr] = useState('');
@@ -75,12 +85,11 @@ export default function App() {
   const [tab, setTab] = useState('blocks');
   const [editBlock, setEditBlock] = useState(null);
   const [toast, setToast] = useState('');
-  const [confirmDel, setConfirmDel] = useState(null); // {type:'profile'|'block', id}
-  const fileRef = useRef();
+  const [confirmDel, setConfirmDel] = useState(null);
 
   useEffect(() => { save(data); }, [data]);
   useEffect(() => {
-    const fn = () => setRoute(hash());
+    const fn = () => setRoute(ghash());
     window.addEventListener('hashchange', fn);
     return () => window.removeEventListener('hashchange', fn);
   }, []);
@@ -88,17 +97,12 @@ export default function App() {
   const go = (s) => { window.location.hash = '#/' + s; };
   const flash = (m) => { setToast(m); setTimeout(() => setToast(''), 2e3); };
 
-  // ── Data helpers (no deep clone!) ──
   const profiles = data.profiles;
   const findP = (id) => profiles.find(p => p.id === id);
   const editP = findP(editId);
-
   const setProfiles = (fn) => setData(d => ({ ...d, profiles: fn(d.profiles) }));
 
-  const updateP = (id, key, val) => {
-    setProfiles(ps => ps.map(p => p.id === id ? { ...p, [key]: val } : p));
-  };
-
+  const updateP = (id, key, val) => setProfiles(ps => ps.map(p => p.id === id ? { ...p, [key]: val } : p));
   const updateBlock = (pid, bid, upd) => {
     setProfiles(ps => ps.map(p => p.id === pid ? { ...p, blocks: p.blocks.map(b => b.id === bid ? { ...b, ...upd } : b) } : p));
     if (editBlock?.id === bid) setEditBlock(prev => ({ ...prev, ...upd }));
@@ -106,378 +110,30 @@ export default function App() {
 
   const addProfile = () => {
     const id = Date.now().toString(36);
-    const p = { id, slug: id, name: 'Новый профиль', bio: '', avatar: '', theme: 'midnight', customBg: '', bgBlur: 0, bgOpacity: 0.5, cardStyle: 'glass', blocks: [] };
-    setProfiles(ps => [...ps, p]);
-    setEditId(id);
-    setTab('profile');
-    setEditBlock(null);
-    flash('Создан!');
+    setProfiles(ps => [...ps, { id, slug: id, name: 'Новый профиль', bio: '', avatar: '', theme: 'midnight', customBg: '', bgBlur: 0, bgOpacity: 0.5, cardStyle: 'glass', blocks: [] }]);
+    setEditId(id); setTab('profile'); setEditBlock(null); flash('Создан!');
   };
-
-  const deleteProfile = (id) => {
-    setProfiles(ps => ps.filter(p => p.id !== id));
-    if (editId === id) { setEditId(null); setEditBlock(null); }
-    setConfirmDel(null);
-    flash('Удалён');
-  };
-
-  const dupProfile = (id) => {
-    const src = findP(id);
-    if (!src) return;
-    const nid = Date.now().toString(36);
-    const dup = { ...JSON.parse(JSON.stringify(src)), id: nid, slug: nid, name: src.name + ' (копия)' };
-    setProfiles(ps => [...ps, dup]);
-    setEditId(nid);
-    flash('Скопирован!');
-  };
-
-  const addBlock = (pid) => {
-    const b = { id: Date.now().toString(), icon: 'link', customIcon: '', title: 'Новая ссылка', url: 'https://', on: true };
-    setProfiles(ps => ps.map(p => p.id === pid ? { ...p, blocks: [...p.blocks, b] } : p));
-    setEditBlock(b);
-  };
-
-  const deleteBlock = (pid, bid) => {
-    setProfiles(ps => ps.map(p => p.id === pid ? { ...p, blocks: p.blocks.filter(b => b.id !== bid) } : p));
-    setEditBlock(null);
-    setConfirmDel(null);
-    flash('Ссылка удалена');
-  };
-
-  const moveBlock = (pid, bid, dir) => {
-    setProfiles(ps => ps.map(p => {
-      if (p.id !== pid) return p;
-      const bl = [...p.blocks]; const i = bl.findIndex(b => b.id === bid);
-      if (dir < 0 && i > 0) [bl[i], bl[i-1]] = [bl[i-1], bl[i]];
-      if (dir > 0 && i < bl.length - 1) [bl[i], bl[i+1]] = [bl[i+1], bl[i]];
-      return { ...p, blocks: bl };
-    }));
-  };
+  const deleteProfile = (id) => { setProfiles(ps => ps.filter(p => p.id !== id)); if (editId === id) { setEditId(null); setEditBlock(null); } setConfirmDel(null); flash('Удалён'); };
+  const dupProfile = (id) => { const s = findP(id); if (!s) return; const nid = Date.now().toString(36); setProfiles(ps => [...ps, { ...JSON.parse(JSON.stringify(s)), id: nid, slug: nid, name: s.name + ' (копия)' }]); setEditId(nid); flash('Скопирован!'); };
+  const addBlock = (pid) => { const b = { id: Date.now().toString(), icon: 'link', customIcon: '', title: 'Новая ссылка', url: 'https://', on: true }; setProfiles(ps => ps.map(p => p.id === pid ? { ...p, blocks: [...p.blocks, b] } : p)); setEditBlock(b); };
+  const deleteBlock = (pid, bid) => { setProfiles(ps => ps.map(p => p.id === pid ? { ...p, blocks: p.blocks.filter(b => b.id !== bid) } : p)); setEditBlock(null); setConfirmDel(null); flash('Ссылка удалена'); };
+  const moveBlock = (pid, bid, dir) => { setProfiles(ps => ps.map(p => { if (p.id !== pid) return p; const bl = [...p.blocks]; const i = bl.findIndex(b => b.id === bid); if (dir < 0 && i > 0) [bl[i], bl[i-1]] = [bl[i-1], bl[i]]; if (dir > 0 && i < bl.length - 1) [bl[i], bl[i+1]] = [bl[i+1], bl[i]]; return { ...p, blocks: bl }; })); };
 
   const readFile = (cb) => (e) => { const f = e.target.files?.[0]; if (!f) return; const r = new FileReader(); r.onload = (ev) => cb(ev.target.result); r.readAsDataURL(f); e.target.value = ''; };
-
   const doLogin = () => { if (pw === ADMIN_PW) { setLogged(true); setPw(''); setPwErr(''); } else setPwErr('Неверный пароль'); };
   const doLogout = () => { setLogged(false); setEditId(null); setEditBlock(null); go(''); };
+  const exportAll = () => { const b = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }); const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = 'linkpage-backup.json'; a.click(); URL.revokeObjectURL(u); flash('Экспортировано!'); };
+  const importAll = (e) => { const f = e.target.files?.[0]; if (!f) return; const r = new FileReader(); r.onload = (ev) => { try { setData(JSON.parse(ev.target.result)); flash('Импорт OK!'); } catch { flash('Ошибка файла'); } }; r.readAsText(f); e.target.value = ''; };
 
-  const exportAll = () => {
-    const b = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
-    const u = URL.createObjectURL(b); const a = document.createElement('a'); a.href = u; a.download = 'linkpage-backup.json'; a.click(); URL.revokeObjectURL(u);
-    flash('Экспортировано!');
-  };
-  const importAll = (e) => {
-    const f = e.target.files?.[0]; if (!f) return;
-    const r = new FileReader(); r.onload = (ev) => { try { setData(JSON.parse(ev.target.result)); flash('Импорт OK!'); } catch { flash('Ошибка файла'); } }; r.readAsText(f); e.target.value = '';
-  };
-
-  // ── Routing ──
+  // Routing
   const isAdmin = route === 'admin';
   const curProfile = !isAdmin ? profiles.find(p => p.slug === route) : null;
   const showHome = !isAdmin && !curProfile && route === '';
   const show404 = !isAdmin && !curProfile && route !== '';
 
-  // ── Styles ──
-  const inpS = { width: '100%', padding: '10px 12px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 9, color: '#fff', fontSize: 14, fontFamily: 'inherit' };
-  const btnS = (bg='rgba(255,255,255,0.1)') => ({ background: bg, border: 'none', color: '#fff', padding: '7px 12px', borderRadius: 8, cursor: 'pointer', fontSize: 12, fontFamily: 'inherit' });
+  const ep = editP;
+  const et = ep ? TH(ep.theme) : THEMES.midnight;
 
-  // ═══════════════════════════════
-  // PUBLIC PROFILE
-  // ═══════════════════════════════
-  const PublicPage = ({ p }) => {
-    const t = TH(p.theme);
-    return (
-      <div style={{ minHeight: '100vh', background: p.customBg ? '#000' : t.bg, display: 'flex', justifyContent: 'center', position: 'relative', fontFamily: "'Outfit',sans-serif" }}>
-        {p.customBg && <div style={{ position: 'fixed', inset: 0, backgroundImage: `url(${p.customBg})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: `blur(${p.bgBlur}px)`, transform: 'scale(1.1)' }} />}
-        {p.customBg && <div style={{ position: 'fixed', inset: 0, background: `rgba(0,0,0,${p.bgOpacity})` }} />}
-        <div style={{ maxWidth: 440, width: '100%', padding: '40px 20px 80px', position: 'relative', zIndex: 1 }}>
-          <div style={{ width: 96, height: 96, borderRadius: '50%', background: t.c, border: `3px solid ${t.a}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 36, color: t.t, margin: '0 auto 16px', overflow: 'hidden', boxShadow: `0 0 30px ${t.a}33` }}>
-            {p.avatar ? <img src={p.avatar} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : (p.name?.charAt(0)?.toUpperCase()||'?')}
-          </div>
-          <h1 style={{ fontSize: 22, fontWeight: 700, color: t.t, textAlign: 'center', margin: '0 0 6px' }}>{p.name}</h1>
-          {p.bio && <p style={{ fontSize: 14, color: t.ts, textAlign: 'center', margin: '0 0 28px', lineHeight: 1.5 }}>{p.bio}</p>}
-          {p.blocks.filter(b => b.on).map((b, i) => (
-            <a key={b.id} href={b.url} target="_blank" rel="noopener noreferrer" className="lc" style={{
-              display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px',
-              background: p.cardStyle === 'outline' ? 'transparent' : t.c,
-              border: `1px solid ${t.cb}`, borderRadius: 14, marginBottom: 10,
-              textDecoration: 'none', transition: 'all .2s',
-              backdropFilter: p.cardStyle === 'glass' ? 'blur(12px)' : 'none',
-              animationDelay: `${i*.05}s`,
-            }}>
-              <BlockIc b={b} size={40} r={10} />
-              <span style={{ fontSize: 15, fontWeight: 600, color: t.t, flex: 1 }}>{b.title}</span>
-              <span style={{ color: t.ts, fontSize: 18 }}>›</span>
-            </a>
-          ))}
-        </div>
-        <button onClick={() => go('admin')} style={{ position: 'fixed', bottom: 20, right: 20, width: 44, height: 44, borderRadius: '50%', background: t.a, border: 'none', color: '#fff', fontSize: 17, cursor: 'pointer', boxShadow: `0 4px 20px ${t.a}66`, zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>⚙</button>
-      </div>
-    );
-  };
-
-  // ═══════════════════════════════
-  // HOME
-  // ═══════════════════════════════
-  const HomePage = () => (
-    <div style={{ minHeight: '100vh', background: THEMES.midnight.bg, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '60px 20px', fontFamily: "'Outfit',sans-serif", color: '#fff' }}>
-      <h1 style={{ fontSize: 28, marginBottom: 8 }}>LinkPage</h1>
-      <p style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 40, fontSize: 14 }}>Выбери профиль</p>
-      {profiles.map(p => {
-        const t = TH(p.theme);
-        return (
-          <div key={p.id} onClick={() => go(p.slug)} className="lc" style={{ width: '100%', maxWidth: 400, padding: '16px 20px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 14, marginBottom: 10, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 14, transition: 'all .2s' }}>
-            <div style={{ width: 44, height: 44, borderRadius: '50%', background: t.a, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, fontWeight: 700, flexShrink: 0, overflow: 'hidden' }}>
-              {p.avatar ? <img src={p.avatar} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : p.name?.charAt(0)?.toUpperCase()}
-            </div>
-            <div>
-              <div style={{ fontWeight: 600, fontSize: 16 }}>{p.name}</div>
-              <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>/{p.slug} · {p.blocks.length} ссылок</div>
-            </div>
-          </div>
-        );
-      })}
-      {profiles.length === 0 && <p style={{ color: 'rgba(255,255,255,0.3)' }}>Пока нет профилей</p>}
-      <button onClick={() => go('admin')} style={{ marginTop: 30, padding: '12px 28px', background: '#6c5ce7', border: 'none', borderRadius: 12, color: '#fff', fontSize: 15, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>⚙ Админка</button>
-    </div>
-  );
-
-  // ═══════════════════════════════
-  // ADMIN
-  // ═══════════════════════════════
-  const AdminPage = () => {
-    if (!logged) return (
-      <div style={{ minHeight: '100vh', background: '#0a0a1a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Outfit',sans-serif" }}>
-        <div style={{ background: '#1a1a2e', padding: 32, borderRadius: 16, width: 320, border: '1px solid rgba(255,255,255,0.1)' }}>
-          <h3 style={{ color: '#fff', marginBottom: 20, fontSize: 18 }}>🔐 Войти в админку</h3>
-          <input type="password" value={pw} onChange={e => setPw(e.target.value)} placeholder="Пароль" autoFocus
-            onKeyDown={e => { if (e.key === 'Enter') doLogin(); }}
-            style={{ ...inpS, marginBottom: 12 }} />
-          {pwErr && <div style={{ color: '#ff6b6b', fontSize: 13, marginBottom: 10 }}>{pwErr}</div>}
-          <div style={{ display: 'flex', gap: 8 }}>
-            <button type="button" onClick={doLogin} style={{ flex: 1, padding: 12, background: '#6c5ce7', border: 'none', borderRadius: 10, color: '#fff', fontSize: 15, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>Войти</button>
-            <button type="button" onClick={() => go('')} style={btnS()}>✕</button>
-          </div>
-        </div>
-      </div>
-    );
-
-    const ep = editP;
-    const et = ep ? TH(ep.theme) : THEMES.midnight;
-
-    return (
-      <div style={{ minHeight: '100vh', background: '#0a0a1a', color: '#fff', fontFamily: "'Outfit',sans-serif" }}>
-        {/* Header */}
-        <div style={{ padding: '12px 20px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <b style={{ fontSize: 17 }}>⚙️ Админка</b>
-          <div style={{ display: 'flex', gap: 6 }}>
-            <button onClick={exportAll} style={btnS()}>📥 Экспорт</button>
-            <label style={{ ...btnS(), cursor: 'pointer', display: 'inline-flex', alignItems: 'center' }}>📤 Импорт<input type="file" accept=".json" onChange={importAll} style={{ display: 'none' }} /></label>
-            <button onClick={doLogout} style={btnS('rgba(255,50,50,0.2)')}>Выйти</button>
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', height: 'calc(100vh - 49px)' }}>
-          {/* LEFT — profile list */}
-          <div style={{ width: 260, borderRight: '1px solid rgba(255,255,255,0.08)', overflowY: 'auto', padding: 14, flexShrink: 0 }}>
-            <button onClick={addProfile} style={{ width: '100%', padding: 11, background: '#6c5ce7', border: 'none', borderRadius: 10, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', marginBottom: 14 }}>+ Новый профиль</button>
-
-            {profiles.map(p => (
-              <div key={p.id} onClick={() => { setEditId(p.id); setTab('blocks'); setEditBlock(null); }}
-                style={{ padding: '10px 12px', background: editId === p.id ? 'rgba(108,92,231,0.2)' : 'rgba(255,255,255,0.04)', border: editId === p.id ? '1px solid rgba(108,92,231,0.4)' : '1px solid transparent', borderRadius: 10, marginBottom: 6, cursor: 'pointer', transition: 'all .15s' }}>
-                <div style={{ fontWeight: 600, fontSize: 14 }}>{p.name}</div>
-                <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)' }}>/{p.slug} · {p.blocks.length} ссылок</div>
-              </div>
-            ))}
-          </div>
-
-          {/* RIGHT — editor */}
-          <div style={{ flex: 1, overflowY: 'auto' }}>
-            {!ep ? (
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'rgba(255,255,255,0.3)', fontSize: 15 }}>← Выбери или создай профиль</div>
-            ) : (
-              <>
-                {/* Tabs */}
-                <div style={{ display: 'flex', borderBottom: '1px solid rgba(255,255,255,0.08)', position: 'sticky', top: 0, background: '#0a0a1a', zIndex: 10 }}>
-                  {[['blocks','📋 Ссылки'],['profile','👤 Профиль'],['design','🎨 Дизайн']].map(([id,lb]) => (
-                    <button key={id} onClick={() => { setTab(id); setEditBlock(null); }} style={{
-                      flex: 1, padding: '12px 6px', background: tab === id ? 'rgba(255,255,255,0.06)' : 'transparent',
-                      border: 'none', borderBottom: tab === id ? `2px solid ${et.a}` : '2px solid transparent',
-                      color: tab === id ? '#fff' : 'rgba(255,255,255,0.45)', cursor: 'pointer', fontSize: 13, fontFamily: 'inherit',
-                    }}>{lb}</button>
-                  ))}
-                </div>
-
-                <div style={{ padding: 20 }}>
-                  {/* Header */}
-                  <div style={{ marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
-                    <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', background: 'rgba(255,255,255,0.06)', padding: '4px 10px', borderRadius: 6 }}>/{ep.slug}</span>
-                    <button onClick={() => go(ep.slug)} style={btnS()}>👁 Смотреть</button>
-                    <button onClick={() => dupProfile(ep.id)} style={btnS()}>📋 Копия</button>
-                    <button onClick={() => setConfirmDel({ type: 'profile', id: ep.id })} style={btnS('rgba(255,50,50,0.2)')}>🗑</button>
-                  </div>
-
-                  {/* ── BLOCKS TAB ── */}
-                  {tab === 'blocks' && !editBlock && (
-                    <>
-                      <button onClick={() => addBlock(ep.id)} style={{ width: '100%', padding: 12, background: et.a, border: 'none', borderRadius: 11, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', marginBottom: 14 }}>+ Добавить ссылку</button>
-                      {ep.blocks.map(b => (
-                        <div key={b.id} style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '9px 10px', background: 'rgba(255,255,255,0.04)', borderRadius: 10, marginBottom: 5, border: '1px solid rgba(255,255,255,0.06)' }}>
-                          <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                            <button onClick={() => moveBlock(ep.id, b.id, -1)} style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: 'rgba(255,255,255,0.5)', width: 18, height: 14, borderRadius: 3, cursor: 'pointer', fontSize: 7, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>▲</button>
-                            <button onClick={() => moveBlock(ep.id, b.id, 1)} style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: 'rgba(255,255,255,0.5)', width: 18, height: 14, borderRadius: 3, cursor: 'pointer', fontSize: 7, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>▼</button>
-                          </div>
-                          <BlockIc b={b} size={28} r={7} />
-                          <div style={{ flex: 1, minWidth: 0 }}>
-                            <div style={{ fontSize: 13, fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{b.title}</div>
-                          </div>
-                          <div onClick={() => updateBlock(ep.id, b.id, { on: !b.on })} style={{ width: 34, height: 18, borderRadius: 9, background: b.on ? et.a : 'rgba(255,255,255,0.15)', position: 'relative', cursor: 'pointer', transition: 'all .2s', flexShrink: 0 }}>
-                            <div style={{ width: 14, height: 14, borderRadius: '50%', background: '#fff', position: 'absolute', top: 2, left: b.on ? 18 : 2, transition: 'all .2s' }} />
-                          </div>
-                          <button onClick={() => setEditBlock(b)} style={btnS()}>✎</button>
-                        </div>
-                      ))}
-                      {ep.blocks.length === 0 && <div style={{ color: 'rgba(255,255,255,0.3)', textAlign: 'center', padding: 20 }}>Пока нет ссылок</div>}
-                    </>
-                  )}
-
-                  {tab === 'blocks' && editBlock && (
-                    <div>
-                      <button onClick={() => setEditBlock(null)} style={{ ...btnS(), marginBottom: 14 }}>← Назад к списку</button>
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-                        <div>
-                          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 5 }}>Название</div>
-                          <input value={editBlock.title} onChange={e => updateBlock(ep.id, editBlock.id, { title: e.target.value })} style={inpS} />
-                        </div>
-                        <div>
-                          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 5 }}>URL</div>
-                          <input value={editBlock.url} onChange={e => updateBlock(ep.id, editBlock.id, { url: e.target.value })} style={inpS} />
-                        </div>
-                        <div>
-                          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 6 }}>Иконка</div>
-                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 5 }}>
-                            {Object.entries(ICONS).map(([k, ic]) => (
-                              <button key={k} onClick={() => updateBlock(ep.id, editBlock.id, { icon: k, customIcon: '' })} style={{
-                                padding: '6px 2px', borderRadius: 7, cursor: 'pointer', textAlign: 'center',
-                                background: !editBlock.customIcon && editBlock.icon === k ? `${et.a}33` : 'rgba(255,255,255,0.05)',
-                                border: !editBlock.customIcon && editBlock.icon === k ? `2px solid ${et.a}` : '2px solid transparent', fontFamily: 'inherit',
-                              }}>
-                                <div style={{ width: 20, height: 20, margin: '0 auto 2px', color: ic.c }} dangerouslySetInnerHTML={{ __html: svg(k, 20) }} />
-                                <div style={{ fontSize: 7, color: 'rgba(255,255,255,0.5)' }}>{ic.l}</div>
-                              </button>
-                            ))}
-                          </div>
-                          <div style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
-                            <label style={{ ...btnS(editBlock.customIcon ? `${et.a}44` : 'rgba(255,255,255,0.1)'), cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: 4, border: editBlock.customIcon ? `1px solid ${et.a}` : '1px solid transparent' }}>
-                              🖼 Своя иконка
-                              <input type="file" accept="image/*" onChange={readFile(v => updateBlock(ep.id, editBlock.id, { customIcon: v }))} style={{ display: 'none' }} />
-                            </label>
-                            {editBlock.customIcon && <>
-                              <img src={editBlock.customIcon} style={{ width: 24, height: 24, borderRadius: 6, objectFit: 'cover' }} />
-                              <button onClick={() => updateBlock(ep.id, editBlock.id, { customIcon: '' })} style={{ ...btnS('rgba(255,0,0,0.2)'), color: '#ff6b6b', fontSize: 11 }}>✕</button>
-                            </>}
-                          </div>
-                        </div>
-                        <button onClick={() => setConfirmDel({ type: 'block', id: editBlock.id })} style={{ padding: 11, background: 'rgba(255,50,50,0.15)', border: '1px solid rgba(255,50,50,0.3)', borderRadius: 10, color: '#ff6b6b', fontSize: 13, cursor: 'pointer', fontFamily: 'inherit' }}>🗑 Удалить ссылку</button>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* ── PROFILE TAB ── */}
-                  {tab === 'profile' && (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                      <div style={{ textAlign: 'center' }}>
-                        <div style={{ width: 80, height: 80, borderRadius: '50%', background: et.c, border: `3px solid ${et.a}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, color: et.t, margin: '0 auto 10px', overflow: 'hidden' }}>
-                          {ep.avatar ? <img src={ep.avatar} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : ep.name?.charAt(0)?.toUpperCase()}
-                        </div>
-                        <label style={{ ...btnS(), display: 'inline-block', cursor: 'pointer' }}>📷 Фото<input type="file" accept="image/*" onChange={readFile(v => updateP(ep.id, 'avatar', v))} style={{ display: 'none' }} /></label>
-                        {ep.avatar && <button onClick={() => updateP(ep.id, 'avatar', '')} style={{ ...btnS('rgba(255,0,0,0.2)'), color: '#ff6b6b', marginLeft: 6 }}>✕</button>}
-                      </div>
-                      <div>
-                        <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 5 }}>Slug (адрес)</div>
-                        <input value={ep.slug} onChange={e => updateP(ep.id, 'slug', e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g, ''))} style={inpS} />
-                        <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', marginTop: 4 }}>сайт.com/#/{ep.slug}</div>
-                      </div>
-                      <div>
-                        <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 5 }}>Имя</div>
-                        <input value={ep.name} onChange={e => updateP(ep.id, 'name', e.target.value)} style={inpS} />
-                      </div>
-                      <div>
-                        <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 5 }}>Описание</div>
-                        <textarea value={ep.bio} onChange={e => updateP(ep.id, 'bio', e.target.value)} rows={3} style={{ ...inpS, resize: 'vertical' }} />
-                      </div>
-                    </div>
-                  )}
-
-                  {/* ── DESIGN TAB ── */}
-                  {tab === 'design' && (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                      <div>
-                        <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8, color: 'rgba(255,255,255,0.6)' }}>Тема</div>
-                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 6 }}>
-                          {Object.entries(THEMES).map(([k, th]) => (
-                            <button key={k} onClick={() => updateP(ep.id, 'theme', k)} style={{ padding: 9, borderRadius: 9, border: ep.theme === k ? `2px solid ${th.a}` : '2px solid rgba(255,255,255,0.08)', background: th.bg, cursor: 'pointer', textAlign: 'left' }}>
-                              <div style={{ fontSize: 12, fontWeight: 600, color: th.t }}>{th.n}</div>
-                              <div style={{ width: 12, height: 12, borderRadius: '50%', background: th.a, marginTop: 4 }} />
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                      <div>
-                        <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8, color: 'rgba(255,255,255,0.6)' }}>Фон</div>
-                        <label style={{ display: 'block', padding: 11, background: 'rgba(255,255,255,0.05)', borderRadius: 10, textAlign: 'center', cursor: 'pointer', border: '1px dashed rgba(255,255,255,0.2)', fontSize: 13 }}>
-                          🖼 Загрузить фон<input type="file" accept="image/*" onChange={readFile(v => updateP(ep.id, 'customBg', v))} style={{ display: 'none' }} />
-                        </label>
-                        {ep.customBg && <>
-                          <button onClick={() => updateP(ep.id, 'customBg', '')} style={{ marginTop: 6, width: '100%', background: 'rgba(255,0,0,0.15)', border: 'none', color: '#ff6b6b', padding: 6, borderRadius: 8, cursor: 'pointer', fontSize: 12 }}>Удалить фон</button>
-                          <div style={{ marginTop: 8, fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>Затемнение {Math.round(ep.bgOpacity*100)}%</div>
-                          <input type="range" min={0} max={1} step={0.05} value={ep.bgOpacity} onChange={e => updateP(ep.id, 'bgOpacity', +e.target.value)} style={{ width: '100%', accentColor: et.a }} />
-                          <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>Размытие {ep.bgBlur}px</div>
-                          <input type="range" min={0} max={30} step={1} value={ep.bgBlur} onChange={e => updateP(ep.id, 'bgBlur', +e.target.value)} style={{ width: '100%', accentColor: et.a }} />
-                        </>}
-                      </div>
-                      <div>
-                        <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8, color: 'rgba(255,255,255,0.6)' }}>Стиль карточек</div>
-                        <div style={{ display: 'flex', gap: 6 }}>
-                          {[['glass','Стекло'],['solid','Заливка'],['outline','Контур']].map(([k,lb]) => (
-                            <button key={k} onClick={() => updateP(ep.id, 'cardStyle', k)} style={{ flex: 1, padding: 9, borderRadius: 8, cursor: 'pointer', fontFamily: 'inherit', background: ep.cardStyle === k ? et.a : 'rgba(255,255,255,0.08)', border: 'none', color: '#fff', fontSize: 12, fontWeight: 500 }}>{lb}</button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  // ═══════════════════════════════
-  // CONFIRM DELETE MODAL
-  // ═══════════════════════════════
-  const ConfirmModal = () => {
-    if (!confirmDel) return null;
-    const isProf = confirmDel.type === 'profile';
-    const name = isProf ? findP(confirmDel.id)?.name : editBlock?.title;
-    return (
-      <div onClick={() => setConfirmDel(null)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, backdropFilter: 'blur(6px)' }}>
-        <div onClick={e => e.stopPropagation()} style={{ background: '#1a1a2e', padding: 28, borderRadius: 14, width: 320, border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center' }}>
-          <div style={{ fontSize: 36, marginBottom: 12 }}>🗑</div>
-          <h3 style={{ color: '#fff', marginBottom: 8, fontSize: 16 }}>Удалить {isProf ? 'профиль' : 'ссылку'}?</h3>
-          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, marginBottom: 20 }}>{name}</p>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <button onClick={() => setConfirmDel(null)} style={{ flex: 1, padding: 11, background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: 10, color: '#fff', fontSize: 14, cursor: 'pointer', fontFamily: 'inherit' }}>Отмена</button>
-            <button onClick={() => { if (isProf) deleteProfile(confirmDel.id); else deleteBlock(editId, confirmDel.id); }} style={{ flex: 1, padding: 11, background: '#e74c3c', border: 'none', borderRadius: 10, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>Удалить</button>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  // ═══════════════════════════════
-  // RENDER
-  // ═══════════════════════════════
   return (
     <>
       <style>{`
@@ -487,9 +143,62 @@ export default function App() {
         @keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
         input:focus,textarea:focus{outline:none}::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:3px}
       `}</style>
-      {isAdmin && <AdminPage />}
-      {curProfile && <PublicPage p={curProfile} />}
-      {showHome && <HomePage />}
+
+      {/* ═══ PUBLIC PROFILE ═══ */}
+      {curProfile && (() => {
+        const p = curProfile, t = TH(p.theme);
+        return (
+          <div style={{ minHeight: '100vh', background: p.customBg ? '#000' : t.bg, display: 'flex', justifyContent: 'center', position: 'relative', fontFamily: "'Outfit',sans-serif" }}>
+            {p.customBg && <div style={{ position: 'fixed', inset: 0, backgroundImage: `url(${p.customBg})`, backgroundSize: 'cover', backgroundPosition: 'center', filter: `blur(${p.bgBlur}px)`, transform: 'scale(1.1)' }} />}
+            {p.customBg && <div style={{ position: 'fixed', inset: 0, background: `rgba(0,0,0,${p.bgOpacity})` }} />}
+            <div style={{ maxWidth: 440, width: '100%', padding: '40px 20px 80px', position: 'relative', zIndex: 1 }}>
+              <div style={{ width: 96, height: 96, borderRadius: '50%', background: t.c, border: `3px solid ${t.a}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 36, color: t.t, margin: '0 auto 16px', overflow: 'hidden', boxShadow: `0 0 30px ${t.a}33` }}>
+                {p.avatar ? <img src={p.avatar} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : (p.name?.charAt(0)?.toUpperCase()||'?')}
+              </div>
+              <h1 style={{ fontSize: 22, fontWeight: 700, color: t.t, textAlign: 'center', margin: '0 0 6px' }}>{p.name}</h1>
+              {p.bio && <p style={{ fontSize: 14, color: t.ts, textAlign: 'center', margin: '0 0 28px', lineHeight: 1.5 }}>{p.bio}</p>}
+              {p.blocks.filter(b => b.on).map((b, i) => (
+                <a key={b.id} href={b.url} target="_blank" rel="noopener noreferrer" className="lc" style={{
+                  display: 'flex', alignItems: 'center', gap: 14, padding: '14px 18px',
+                  background: p.cardStyle === 'outline' ? 'transparent' : t.c,
+                  border: `1px solid ${t.cb}`, borderRadius: 14, marginBottom: 10,
+                  textDecoration: 'none', transition: 'all .2s',
+                  backdropFilter: p.cardStyle === 'glass' ? 'blur(12px)' : 'none',
+                  animationDelay: `${i*.05}s`,
+                }}>
+                  <BIco b={b} />
+                  <span style={{ fontSize: 15, fontWeight: 600, color: t.t, flex: 1 }}>{b.title}</span>
+                  <span style={{ color: t.ts, fontSize: 18 }}>›</span>
+                </a>
+              ))}
+            </div>
+            <button onClick={() => go('admin')} style={{ position: 'fixed', bottom: 20, right: 20, width: 44, height: 44, borderRadius: '50%', background: t.a, border: 'none', color: '#fff', fontSize: 17, cursor: 'pointer', boxShadow: `0 4px 20px ${t.a}66`, zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>⚙</button>
+          </div>
+        );
+      })()}
+
+      {/* ═══ HOME ═══ */}
+      {showHome && (
+        <div style={{ minHeight: '100vh', background: THEMES.midnight.bg, display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '60px 20px', fontFamily: "'Outfit',sans-serif", color: '#fff' }}>
+          <h1 style={{ fontSize: 28, marginBottom: 8 }}>LinkPage</h1>
+          <p style={{ color: 'rgba(255,255,255,0.5)', marginBottom: 40, fontSize: 14 }}>Выбери профиль</p>
+          {profiles.map(p => (
+            <div key={p.id} onClick={() => go(p.slug)} className="lc" style={{ width: '100%', maxWidth: 400, padding: '16px 20px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 14, marginBottom: 10, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 14, transition: 'all .2s' }}>
+              <div style={{ width: 44, height: 44, borderRadius: '50%', background: TH(p.theme).a, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, fontWeight: 700, flexShrink: 0, overflow: 'hidden' }}>
+                {p.avatar ? <img src={p.avatar} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : p.name?.charAt(0)?.toUpperCase()}
+              </div>
+              <div>
+                <div style={{ fontWeight: 600, fontSize: 16 }}>{p.name}</div>
+                <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)' }}>/{p.slug} · {p.blocks.length} ссылок</div>
+              </div>
+            </div>
+          ))}
+          {profiles.length === 0 && <p style={{ color: 'rgba(255,255,255,0.3)' }}>Пока нет профилей</p>}
+          <button onClick={() => go('admin')} style={{ marginTop: 30, padding: '12px 28px', background: '#6c5ce7', border: 'none', borderRadius: 12, color: '#fff', fontSize: 15, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>⚙ Админка</button>
+        </div>
+      )}
+
+      {/* ═══ 404 ═══ */}
       {show404 && (
         <div style={{ minHeight: '100vh', background: '#0a0a1a', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', color: '#fff', fontFamily: "'Outfit',sans-serif" }}>
           <div style={{ fontSize: 60, marginBottom: 16 }}>🤷</div>
@@ -498,7 +207,235 @@ export default function App() {
           <button onClick={() => go('')} style={{ padding: '10px 24px', background: '#6c5ce7', border: 'none', borderRadius: 10, color: '#fff', cursor: 'pointer', fontFamily: 'inherit' }}>На главную</button>
         </div>
       )}
-      <ConfirmModal />
+
+      {/* ═══ ADMIN LOGIN ═══ */}
+      {isAdmin && !logged && (
+        <div style={{ minHeight: '100vh', background: '#0a0a1a', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Outfit',sans-serif" }}>
+          <div style={{ background: '#1a1a2e', padding: 32, borderRadius: 16, width: 320, border: '1px solid rgba(255,255,255,0.1)' }}>
+            <h3 style={{ color: '#fff', marginBottom: 20, fontSize: 18 }}>🔐 Войти в админку</h3>
+            <input type="password" value={pw} onChange={e => setPw(e.target.value)} placeholder="Пароль" autoFocus
+              onKeyDown={e => { if (e.key === 'Enter') doLogin(); }}
+              style={{ ...inpS, marginBottom: 12 }} />
+            {pwErr && <div style={{ color: '#ff6b6b', fontSize: 13, marginBottom: 10 }}>{pwErr}</div>}
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button type="button" onClick={doLogin} style={{ flex: 1, padding: 12, background: '#6c5ce7', border: 'none', borderRadius: 10, color: '#fff', fontSize: 15, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>Войти</button>
+              <button type="button" onClick={() => go('')} style={btnSFn()}>✕</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ═══ ADMIN PANEL ═══ */}
+      {isAdmin && logged && (
+        <div style={{ minHeight: '100vh', background: '#0a0a1a', color: '#fff', fontFamily: "'Outfit',sans-serif" }}>
+          {/* Header */}
+          <div style={{ padding: '12px 20px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <b style={{ fontSize: 17 }}>⚙️ Админка</b>
+            <div style={{ display: 'flex', gap: 6 }}>
+              <button onClick={exportAll} style={btnSFn()}>📥 Экспорт</button>
+              <label style={{ ...btnSFn(), cursor: 'pointer', display: 'inline-flex', alignItems: 'center' }}>📤 Импорт<input type="file" accept=".json" onChange={importAll} style={{ display: 'none' }} /></label>
+              <button onClick={doLogout} style={btnSFn('rgba(255,50,50,0.2)')}>Выйти</button>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', height: 'calc(100vh - 49px)' }}>
+            {/* LEFT — list */}
+            <div style={{ width: 260, borderRight: '1px solid rgba(255,255,255,0.08)', overflowY: 'auto', padding: 14, flexShrink: 0 }}>
+              <button onClick={addProfile} style={{ width: '100%', padding: 11, background: '#6c5ce7', border: 'none', borderRadius: 10, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', marginBottom: 14 }}>+ Новый профиль</button>
+              {profiles.map(p => (
+                <div key={p.id} onClick={() => { setEditId(p.id); setTab('blocks'); setEditBlock(null); }}
+                  style={{ padding: '10px 12px', background: editId === p.id ? 'rgba(108,92,231,0.2)' : 'rgba(255,255,255,0.04)', border: editId === p.id ? '1px solid rgba(108,92,231,0.4)' : '1px solid transparent', borderRadius: 10, marginBottom: 6, cursor: 'pointer', transition: 'all .15s' }}>
+                  <div style={{ fontWeight: 600, fontSize: 14 }}>{p.name}</div>
+                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.35)' }}>/{p.slug} · {p.blocks.length} ссылок</div>
+                </div>
+              ))}
+            </div>
+
+            {/* RIGHT — editor */}
+            <div style={{ flex: 1, overflowY: 'auto' }}>
+              {!ep ? (
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: 'rgba(255,255,255,0.3)', fontSize: 15 }}>← Выбери или создай профиль</div>
+              ) : (
+                <>
+                  {/* Tabs */}
+                  <div style={{ display: 'flex', borderBottom: '1px solid rgba(255,255,255,0.08)', position: 'sticky', top: 0, background: '#0a0a1a', zIndex: 10 }}>
+                    {[['blocks','📋 Ссылки'],['profile','👤 Профиль'],['design','🎨 Дизайн']].map(([id,lb]) => (
+                      <button key={id} onClick={() => { setTab(id); setEditBlock(null); }} style={{
+                        flex: 1, padding: '12px 6px', background: tab === id ? 'rgba(255,255,255,0.06)' : 'transparent',
+                        border: 'none', borderBottom: tab === id ? `2px solid ${et.a}` : '2px solid transparent',
+                        color: tab === id ? '#fff' : 'rgba(255,255,255,0.45)', cursor: 'pointer', fontSize: 13, fontFamily: 'inherit',
+                      }}>{lb}</button>
+                    ))}
+                  </div>
+
+                  <div style={{ padding: 20 }}>
+                    {/* Header bar */}
+                    <div style={{ marginBottom: 16, display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', background: 'rgba(255,255,255,0.06)', padding: '4px 10px', borderRadius: 6 }}>/{ep.slug}</span>
+                      <button onClick={() => go(ep.slug)} style={btnSFn()}>👁 Смотреть</button>
+                      <button onClick={() => dupProfile(ep.id)} style={btnSFn()}>📋 Копия</button>
+                      <button onClick={() => setConfirmDel({ type: 'profile', id: ep.id })} style={btnSFn('rgba(255,50,50,0.2)')}>🗑</button>
+                    </div>
+
+                    {/* ── BLOCKS ── */}
+                    {tab === 'blocks' && !editBlock && (
+                      <>
+                        <button onClick={() => addBlock(ep.id)} style={{ width: '100%', padding: 12, background: et.a, border: 'none', borderRadius: 11, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', marginBottom: 14 }}>+ Добавить ссылку</button>
+                        {ep.blocks.map(b => (
+                          <div key={b.id} style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '9px 10px', background: 'rgba(255,255,255,0.04)', borderRadius: 10, marginBottom: 5, border: '1px solid rgba(255,255,255,0.06)' }}>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                              <button onClick={() => moveBlock(ep.id, b.id, -1)} style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: 'rgba(255,255,255,0.5)', width: 18, height: 14, borderRadius: 3, cursor: 'pointer', fontSize: 7, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>▲</button>
+                              <button onClick={() => moveBlock(ep.id, b.id, 1)} style={{ background: 'rgba(255,255,255,0.1)', border: 'none', color: 'rgba(255,255,255,0.5)', width: 18, height: 14, borderRadius: 3, cursor: 'pointer', fontSize: 7, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>▼</button>
+                            </div>
+                            <BIco b={b} size={28} radius={7} />
+                            <div style={{ flex: 1, minWidth: 0 }}>
+                              <div style={{ fontSize: 13, fontWeight: 600, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{b.title}</div>
+                            </div>
+                            <div onClick={() => updateBlock(ep.id, b.id, { on: !b.on })} style={{ width: 34, height: 18, borderRadius: 9, background: b.on ? et.a : 'rgba(255,255,255,0.15)', position: 'relative', cursor: 'pointer', transition: 'all .2s', flexShrink: 0 }}>
+                              <div style={{ width: 14, height: 14, borderRadius: '50%', background: '#fff', position: 'absolute', top: 2, left: b.on ? 18 : 2, transition: 'all .2s' }} />
+                            </div>
+                            <button onClick={() => setEditBlock(b)} style={btnSFn()}>✎</button>
+                          </div>
+                        ))}
+                        {ep.blocks.length === 0 && <div style={{ color: 'rgba(255,255,255,0.3)', textAlign: 'center', padding: 20 }}>Пока нет ссылок</div>}
+                      </>
+                    )}
+
+                    {tab === 'blocks' && editBlock && (
+                      <div>
+                        <button onClick={() => setEditBlock(null)} style={{ ...btnSFn(), marginBottom: 14 }}>← Назад к списку</button>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                          <div>
+                            <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 5 }}>Название</div>
+                            <input value={editBlock.title} onChange={e => updateBlock(ep.id, editBlock.id, { title: e.target.value })} style={inpS} />
+                          </div>
+                          <div>
+                            <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 5 }}>URL</div>
+                            <input value={editBlock.url} onChange={e => updateBlock(ep.id, editBlock.id, { url: e.target.value })} style={inpS} />
+                          </div>
+                          <div>
+                            <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 6 }}>Иконка</div>
+                            {editBlock.customIcon && (
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10, padding: '8px 12px', background: 'rgba(255,255,255,0.06)', borderRadius: 9, border: '1px solid rgba(255,255,255,0.1)' }}>
+                                <img src={editBlock.customIcon} style={{ width: 32, height: 32, borderRadius: 7, objectFit: 'cover' }} />
+                                <span style={{ flex: 1, fontSize: 12, color: 'rgba(255,255,255,0.6)' }}>Своя иконка</span>
+                                <button onClick={() => updateBlock(ep.id, editBlock.id, { customIcon: '' })} style={{ ...btnSFn('rgba(255,0,0,0.2)'), color: '#ff6b6b', fontSize: 11 }}>✕ Убрать</button>
+                              </div>
+                            )}
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 5 }}>
+                              {Object.entries(ICONS).map(([k, ic]) => (
+                                <button key={k} onClick={() => updateBlock(ep.id, editBlock.id, { icon: k, customIcon: '' })} style={{
+                                  padding: '6px 2px', borderRadius: 7, cursor: 'pointer', textAlign: 'center',
+                                  background: !editBlock.customIcon && editBlock.icon === k ? `${et.a}33` : 'rgba(255,255,255,0.05)',
+                                  border: !editBlock.customIcon && editBlock.icon === k ? `2px solid ${et.a}` : '2px solid transparent', fontFamily: 'inherit',
+                                }}>
+                                  <div style={{ width: 20, height: 20, margin: '0 auto 2px', color: ic.c }} dangerouslySetInnerHTML={{ __html: mksvg(k, 20) }} />
+                                  <div style={{ fontSize: 7, color: 'rgba(255,255,255,0.5)' }}>{ic.l}</div>
+                                </button>
+                              ))}
+                              <label style={{ padding: '6px 2px', borderRadius: 7, cursor: 'pointer', textAlign: 'center', background: editBlock.customIcon ? `${et.a}33` : 'rgba(255,255,255,0.05)', border: editBlock.customIcon ? `2px solid ${et.a}` : '2px solid transparent' }}>
+                                <div style={{ width: 20, height: 20, margin: '0 auto 2px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>📷</div>
+                                <div style={{ fontSize: 7, color: 'rgba(255,255,255,0.5)' }}>Своя</div>
+                                <input type="file" accept="image/*" onChange={readFile(v => updateBlock(ep.id, editBlock.id, { customIcon: v }))} style={{ display: 'none' }} />
+                              </label>
+                            </div>
+                          </div>
+                          <button onClick={() => setConfirmDel({ type: 'block', id: editBlock.id })} style={{ padding: 11, background: 'rgba(255,50,50,0.15)', border: '1px solid rgba(255,50,50,0.3)', borderRadius: 10, color: '#ff6b6b', fontSize: 13, cursor: 'pointer', fontFamily: 'inherit' }}>🗑 Удалить ссылку</button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* ── PROFILE ── */}
+                    {tab === 'profile' && (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                        <div style={{ textAlign: 'center' }}>
+                          <div style={{ width: 80, height: 80, borderRadius: '50%', background: et.c, border: `3px solid ${et.a}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 28, color: et.t, margin: '0 auto 10px', overflow: 'hidden' }}>
+                            {ep.avatar ? <img src={ep.avatar} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : ep.name?.charAt(0)?.toUpperCase()}
+                          </div>
+                          <label style={{ ...btnSFn(), display: 'inline-block', cursor: 'pointer' }}>📷 Фото<input type="file" accept="image/*" onChange={readFile(v => updateP(ep.id, 'avatar', v))} style={{ display: 'none' }} /></label>
+                          {ep.avatar && <button onClick={() => updateP(ep.id, 'avatar', '')} style={{ ...btnSFn('rgba(255,0,0,0.2)'), color: '#ff6b6b', marginLeft: 6 }}>✕</button>}
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 5 }}>Slug (адрес)</div>
+                          <input value={ep.slug} onChange={e => updateP(ep.id, 'slug', e.target.value.toLowerCase().replace(/[^a-z0-9_-]/g, ''))} style={inpS} />
+                          <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', marginTop: 4 }}>сайт.com/#/{ep.slug}</div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 5 }}>Имя</div>
+                          <input value={ep.name} onChange={e => updateP(ep.id, 'name', e.target.value)} style={inpS} />
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 5 }}>Описание</div>
+                          <textarea value={ep.bio} onChange={e => updateP(ep.id, 'bio', e.target.value)} rows={3} style={{ ...inpS, resize: 'vertical' }} />
+                        </div>
+                      </div>
+                    )}
+
+                    {/* ── DESIGN ── */}
+                    {tab === 'design' && (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+                        <div>
+                          <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8, color: 'rgba(255,255,255,0.6)' }}>Тема</div>
+                          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 6 }}>
+                            {Object.entries(THEMES).map(([k, th]) => (
+                              <button key={k} onClick={() => updateP(ep.id, 'theme', k)} style={{ padding: 9, borderRadius: 9, border: ep.theme === k ? `2px solid ${th.a}` : '2px solid rgba(255,255,255,0.08)', background: th.bg, cursor: 'pointer', textAlign: 'left' }}>
+                                <div style={{ fontSize: 12, fontWeight: 600, color: th.t }}>{th.n}</div>
+                                <div style={{ width: 12, height: 12, borderRadius: '50%', background: th.a, marginTop: 4 }} />
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8, color: 'rgba(255,255,255,0.6)' }}>Фон</div>
+                          <label style={{ display: 'block', padding: 11, background: 'rgba(255,255,255,0.05)', borderRadius: 10, textAlign: 'center', cursor: 'pointer', border: '1px dashed rgba(255,255,255,0.2)', fontSize: 13 }}>
+                            🖼 Загрузить фон<input type="file" accept="image/*" onChange={readFile(v => updateP(ep.id, 'customBg', v))} style={{ display: 'none' }} />
+                          </label>
+                          {ep.customBg && <>
+                            <button onClick={() => updateP(ep.id, 'customBg', '')} style={{ marginTop: 6, width: '100%', background: 'rgba(255,0,0,0.15)', border: 'none', color: '#ff6b6b', padding: 6, borderRadius: 8, cursor: 'pointer', fontSize: 12 }}>Удалить фон</button>
+                            <div style={{ marginTop: 8, fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>Затемнение {Math.round(ep.bgOpacity*100)}%</div>
+                            <input type="range" min={0} max={1} step={0.05} value={ep.bgOpacity} onChange={e => updateP(ep.id, 'bgOpacity', +e.target.value)} style={{ width: '100%', accentColor: et.a }} />
+                            <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.5)' }}>Размытие {ep.bgBlur}px</div>
+                            <input type="range" min={0} max={30} step={1} value={ep.bgBlur} onChange={e => updateP(ep.id, 'bgBlur', +e.target.value)} style={{ width: '100%', accentColor: et.a }} />
+                          </>}
+                        </div>
+                        <div>
+                          <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 8, color: 'rgba(255,255,255,0.6)' }}>Стиль карточек</div>
+                          <div style={{ display: 'flex', gap: 6 }}>
+                            {[['glass','Стекло'],['solid','Заливка'],['outline','Контур']].map(([k,lb]) => (
+                              <button key={k} onClick={() => updateP(ep.id, 'cardStyle', k)} style={{ flex: 1, padding: 9, borderRadius: 8, cursor: 'pointer', fontFamily: 'inherit', background: ep.cardStyle === k ? et.a : 'rgba(255,255,255,0.08)', border: 'none', color: '#fff', fontSize: 12, fontWeight: 500 }}>{lb}</button>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ═══ CONFIRM DELETE ═══ */}
+      {confirmDel && (() => {
+        const isProf = confirmDel.type === 'profile';
+        const nm = isProf ? findP(confirmDel.id)?.name : editBlock?.title;
+        return (
+          <div onClick={() => setConfirmDel(null)} style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.7)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 9999, backdropFilter: 'blur(6px)' }}>
+            <div onClick={e => e.stopPropagation()} style={{ background: '#1a1a2e', padding: 28, borderRadius: 14, width: 320, border: '1px solid rgba(255,255,255,0.1)', textAlign: 'center' }}>
+              <div style={{ fontSize: 36, marginBottom: 12 }}>🗑</div>
+              <h3 style={{ color: '#fff', marginBottom: 8, fontSize: 16 }}>Удалить {isProf ? 'профиль' : 'ссылку'}?</h3>
+              <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13, marginBottom: 20 }}>{nm}</p>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button onClick={() => setConfirmDel(null)} style={{ flex: 1, padding: 11, background: 'rgba(255,255,255,0.1)', border: 'none', borderRadius: 10, color: '#fff', fontSize: 14, cursor: 'pointer', fontFamily: 'inherit' }}>Отмена</button>
+                <button onClick={() => { if (isProf) deleteProfile(confirmDel.id); else deleteBlock(editId, confirmDel.id); }} style={{ flex: 1, padding: 11, background: '#e74c3c', border: 'none', borderRadius: 10, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' }}>Удалить</button>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* Toast */}
       {toast && <div style={{ position: 'fixed', bottom: 30, left: '50%', transform: 'translateX(-50%)', background: '#6c5ce7', color: '#fff', padding: '10px 24px', borderRadius: 10, fontSize: 13, fontWeight: 500, zIndex: 10000, boxShadow: '0 4px 20px rgba(0,0,0,0.3)' }}>{toast}</div>}
     </>
   );
