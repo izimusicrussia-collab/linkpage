@@ -14,9 +14,33 @@
       "blocks": [
         {
           "id": "1770751463536",
-          "icon": "telegram",
+          "icon": "instagram",
           "customIcon": "",
           "title": "Новая ссылка22",
+          "url": "https://",
+          "on": true
+        },
+        {
+          "id": "1770752629275",
+          "icon": "telegram",
+          "customIcon": "",
+          "title": "Новая ссылка",
+          "url": "https://",
+          "on": true
+        },
+        {
+          "id": "1770752632028",
+          "icon": "instagram",
+          "customIcon": "",
+          "title": "Новая ссылка",
+          "url": "https://",
+          "on": true
+        },
+        {
+          "id": "1770752634565",
+          "icon": "youtube",
+          "customIcon": "",
+          "title": "Новая ссылка",
           "url": "https://",
           "on": true
         }
