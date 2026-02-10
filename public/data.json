@@ -11,7 +11,16 @@
       "bgBlur": 0,
       "bgOpacity": 0.5,
       "cardStyle": "glass",
-      "blocks": []
+      "blocks": [
+        {
+          "id": "1770751463536",
+          "icon": "telegram",
+          "customIcon": "",
+          "title": "Новая ссылка22",
+          "url": "https://",
+          "on": true
+        }
+      ]
     }
   ]
 }
