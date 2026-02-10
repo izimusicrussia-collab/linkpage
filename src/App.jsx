@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useRef } from "react";
 
 /* ─── TEMPLATES ─── */
 const TEMPLATES = {
@@ -125,7 +125,7 @@ function ColorRow({ label, value, onChange }) {
 }
 
 /* ─── ACCORDION SECTION ─── */
-function Section({ title, icon, open, onToggle, children, accent }) {
+function Section({ title, icon, open, onToggle, children }) {
   return (
     <div style={{ marginBottom: 8 }}>
       <button onClick={onToggle} style={{
@@ -337,7 +337,7 @@ export default function LinkPage() {
                 display: "flex", alignItems: "center", justifyContent: "center",
                 overflow: "hidden", cursor: mode === "edit" ? "pointer" : "default",
                 transition: "transform 0.3s", position: "relative",
-                fontSize: avatarSize * 0.38,
+                fontSize: avatarSize * 0.38, color: t.nameColor,
               }}
               onMouseEnter={e => { if (mode === "edit") e.currentTarget.style.transform = "scale(1.05)"; }}
               onMouseLeave={e => { e.currentTarget.style.transform = "scale(1)"; }}
@@ -395,12 +395,12 @@ export default function LinkPage() {
                   <div style={{
                     width: iconSize, height: iconSize, borderRadius: iconRadius,
                     background: bgColor, display: "flex", alignItems: "center", justifyContent: "center",
-                    flexShrink: 0, overflow: "hidden",
+                    flexShrink: 0, overflow: "hidden", color: "#fff",
                   }}>
                     {link.customIcon ? (
                       <img src={link.customIcon} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                     ) : (
-                      social?.icon || <span style={{ fontSize: 16, color: "#fff" }}>🔗</span>
+                      social?.icon || <span style={{ fontSize: 16 }}>🔗</span>
                     )}
                   </div>
                   <div style={{ flex: 1, fontSize: 15, fontWeight: 500, textAlign: "center", paddingRight: iconSize }}>{link.label}</div>
@@ -426,7 +426,7 @@ export default function LinkPage() {
               <div style={{ width: 32, height: 4, background: "rgba(128,128,128,0.2)", borderRadius: 2, margin: "0 auto 14px" }} />
 
               {/* SECTION: TEMPLATES */}
-              <Section title="Шаблоны" icon={<PaletteIcon />} open={openSections.templates} onToggle={() => toggleSection("templates")} accent={t.accent}>
+              <Section title="Шаблоны" icon={<PaletteIcon />} open={openSections.templates} onToggle={() => toggleSection("templates")}>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 6 }}>
                   {Object.entries(TEMPLATES).map(([key, tmpl]) => (
                     <button key={key} onClick={() => applyTemplate(key)} style={{
@@ -443,7 +443,7 @@ export default function LinkPage() {
               </Section>
 
               {/* SECTION: PROFILE */}
-              <Section title="Профиль" icon={<CameraIcon />} open={openSections.profile} onToggle={() => toggleSection("profile")} accent={t.accent}>
+              <Section title="Профиль" icon={<CameraIcon />} open={openSections.profile} onToggle={() => toggleSection("profile")}>
                 <div style={{ display: "flex", gap: 10, marginBottom: 12, alignItems: "center" }}>
                   <div onClick={avatarUpload.trigger} style={{
                     width: 56, height: 56, borderRadius: "50%", border: `2px solid ${t.accent}`,
@@ -464,8 +464,7 @@ export default function LinkPage() {
               </Section>
 
               {/* SECTION: DESIGN */}
-              <Section title="Дизайн и фон" icon={<ImageIcon />} open={openSections.design} onToggle={() => toggleSection("design")} accent={t.accent}>
-                {/* Background image */}
+              <Section title="Дизайн и фон" icon={<ImageIcon />} open={openSections.design} onToggle={() => toggleSection("design")}>
                 <div style={{ fontSize: 12, fontWeight: 600, opacity: 0.5, marginBottom: 6, textTransform: "uppercase", letterSpacing: "0.05em" }}>Фоновое изображение</div>
                 <div style={{ display: "flex", gap: 6, marginBottom: 10 }}>
                   <button onClick={bgUpload.trigger} className="ed-btn" style={{ flex: 1 }}><ImageIcon /> Загрузить фон</button>
@@ -495,7 +494,6 @@ export default function LinkPage() {
 
                 <div style={{ height: 1, background: "rgba(128,128,128,0.12)", margin: "12px 0" }} />
 
-                {/* Colors */}
                 <div style={{ fontSize: 12, fontWeight: 600, opacity: 0.5, marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.05em" }}>Цвета</div>
                 <ColorRow label="Текст" value={customTextColor || tBase.textColor} onChange={setCustomTextColor} />
                 <ColorRow label="Имя" value={customNameColor || tBase.nameColor} onChange={setCustomNameColor} />
@@ -506,7 +504,6 @@ export default function LinkPage() {
 
                 <div style={{ height: 1, background: "rgba(128,128,128,0.12)", margin: "12px 0" }} />
 
-                {/* Card styling */}
                 <div style={{ fontSize: 12, fontWeight: 600, opacity: 0.5, marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.05em" }}>Карточки</div>
                 <Slider label="Скругление карточек" value={cardRadius} min={0} max={28} onChange={setCardRadius} unit="px" accent={t.accent} />
                 <Slider label="Вертикальный отступ" value={cardPaddingV} min={6} max={24} onChange={setCardPaddingV} unit="px" accent={t.accent} />
@@ -515,14 +512,13 @@ export default function LinkPage() {
 
                 <div style={{ height: 1, background: "rgba(128,128,128,0.12)", margin: "12px 0" }} />
 
-                {/* Icons */}
                 <div style={{ fontSize: 12, fontWeight: 600, opacity: 0.5, marginBottom: 8, textTransform: "uppercase", letterSpacing: "0.05em" }}>Иконки</div>
                 <Slider label="Размер иконок" value={iconSize} min={24} max={56} onChange={setIconSize} unit="px" accent={t.accent} />
                 <Slider label="Скругление иконок" value={iconRadius} min={0} max={28} onChange={setIconRadius} unit="px" accent={t.accent} />
               </Section>
 
               {/* SECTION: LINKS */}
-              <Section title={`Ссылки (${links.length})`} icon={<PlusIcon />} open={openSections.links} onToggle={() => toggleSection("links")} accent={t.accent}>
+              <Section title={`Ссылки (${links.length})`} icon={<PlusIcon />} open={openSections.links} onToggle={() => toggleSection("links")}>
                 {links.map(link => {
                   const social = SOCIAL_ICONS[link.platform];
                   return (
@@ -533,7 +529,7 @@ export default function LinkPage() {
                       <div style={{
                         width: 28, height: 28, borderRadius: Math.min(iconRadius, 8), overflow: "hidden",
                         background: link.iconBgColor || social?.color || "#666",
-                        display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+                        display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, color: "#fff",
                       }}>
                         {link.customIcon
                           ? <img src={link.customIcon} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -605,7 +601,7 @@ export default function LinkPage() {
                     width: 52, height: 52, borderRadius: iconRadius, overflow: "hidden",
                     background: link.iconBgColor || social?.color || "#666",
                     display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
-                    cursor: "pointer", position: "relative",
+                    cursor: "pointer", position: "relative", color: "#fff",
                   }} onClick={() => triggerIconUpload(link.id)}>
                     {link.customIcon
                       ? <img src={link.customIcon} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
