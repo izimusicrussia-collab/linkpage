@@ -274,45 +274,48 @@ export default function App() {
       )}
 
       {/* ═══ ADMIN PANEL ═══ */}
-      {isAdmin && logged && (
-        <div style={{ minHeight: '100vh', background: '#0a0a1a', color: '#fff', fontFamily: "'Outfit',sans-serif" }}>
+      {isAdmin && logged && (() => {
+        const ghOk = gh.token && gh.owner && gh.repo;
+        return (
+        <div style={{ minHeight: '100vh', background: '#0a0a1a', color: '#fff', fontFamily: "'Outfit',sans-serif", display: 'flex', flexDirection: 'column' }}>
           <div style={{ padding: '12px 20px', borderBottom: '1px solid rgba(255,255,255,0.08)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <b style={{ fontSize: 17 }}>⚙️ Админка</b>
             <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-              {hasChanges && <span style={{ fontSize: 11, color: '#ffa502', animation: 'pulse 2s infinite' }}>● Есть изменения</span>}
+              {hasChanges && <span style={{ fontSize: 11, color: '#ffa502', animation: 'pulse 2s infinite' }}>● Не опубликовано</span>}
               <button onClick={doPublish} disabled={publishing} style={{ ...btnSFn(hasChanges ? '#00b894' : 'rgba(0,184,148,0.3)'), fontWeight: 600, padding: '7px 16px', opacity: publishing ? 0.6 : 1 }}>{publishing ? '⏳...' : '🚀 Опубликовать'}</button>
-              <button onClick={() => setShowGH(!showGH)} style={btnSFn(showGH ? 'rgba(108,92,231,0.3)' : undefined)} title="GitHub настройки">⚙</button>
+              {ghOk && <button onClick={() => setShowGH(!showGH)} style={{ ...btnSFn(showGH ? 'rgba(108,92,231,0.3)' : undefined), fontSize: 10 }} title="GitHub настройки">⚙</button>}
               <button onClick={exportAll} style={btnSFn()}>📥</button>
               <label style={{ ...btnSFn(), cursor: 'pointer', display: 'inline-flex', alignItems: 'center' }}>📤<input type="file" accept=".json" onChange={importAll} style={{ display: 'none' }} /></label>
               <button onClick={doLogout} style={btnSFn('rgba(255,50,50,0.2)')}>Выйти</button>
             </div>
           </div>
 
-          {/* GitHub settings dropdown */}
-          {showGH && (
-            <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.08)', background: 'rgba(108,92,231,0.08)' }}>
-              <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 10, color: 'rgba(255,255,255,0.7)' }}>🔗 GitHub настройки (нужно один раз)</div>
+          {/* GitHub settings — shows if not configured OR manually opened */}
+          {(!ghOk || showGH) && (
+            <div style={{ padding: '16px 20px', borderBottom: '1px solid rgba(255,255,255,0.08)', background: ghOk ? 'rgba(0,184,148,0.06)' : 'rgba(255,165,2,0.08)' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,0.7)' }}>{ghOk ? '✅ GitHub подключён' : '⚠️ Настрой GitHub (один раз)'}</div>
+                {ghOk && <button onClick={() => setShowGH(false)} style={{ ...btnSFn(), fontSize: 10 }}>Скрыть</button>}
+              </div>
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                 <div style={{ flex: 1, minWidth: 200 }}>
-                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginBottom: 3 }}>Personal Access Token</div>
+                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginBottom: 3 }}>Token</div>
                   <input type="password" value={gh.token} onChange={e => setGh({ ...gh, token: e.target.value })} placeholder="ghp_xxxxxxxxxxxx" style={{ ...inpS, fontSize: 12 }} />
                 </div>
                 <div style={{ flex: 0.5, minWidth: 120 }}>
-                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginBottom: 3 }}>Владелец (owner)</div>
+                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginBottom: 3 }}>Owner</div>
                   <input value={gh.owner} onChange={e => setGh({ ...gh, owner: e.target.value })} placeholder="username" style={{ ...inpS, fontSize: 12 }} />
                 </div>
                 <div style={{ flex: 0.5, minWidth: 120 }}>
-                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginBottom: 3 }}>Репозиторий</div>
+                  <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.4)', marginBottom: 3 }}>Repo</div>
                   <input value={gh.repo} onChange={e => setGh({ ...gh, repo: e.target.value })} placeholder="linkpage" style={{ ...inpS, fontSize: 12 }} />
                 </div>
               </div>
-              <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', marginTop: 8 }}>
-                Создай токен: GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate → галочка "repo"
-              </div>
+              {!ghOk && <div style={{ fontSize: 11, color: 'rgba(255,255,255,0.3)', marginTop: 8 }}>GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate → галочка "repo"</div>}
             </div>
           )}
 
-          <div style={{ display: 'flex', height: showGH ? 'calc(100vh - 140px)' : 'calc(100vh - 49px)' }}>
+          <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
             <div style={{ width: 260, borderRight: '1px solid rgba(255,255,255,0.08)', overflowY: 'auto', padding: 14, flexShrink: 0 }}>
               <button onClick={addProfile} style={{ width: '100%', padding: 11, background: '#6c5ce7', border: 'none', borderRadius: 10, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', marginBottom: 14 }}>+ Новый профиль</button>
               {profiles.map(p => (
@@ -445,7 +448,7 @@ export default function App() {
             </div>
           </div>
         </div>
-      )}
+      ); })()}
 
       {/* ═══ CONFIRM DELETE ═══ */}
       {confirmDel && (() => { const isProf = confirmDel.type === 'profile', nm = isProf ? findP(confirmDel.id)?.name : editBlock?.title; return (
