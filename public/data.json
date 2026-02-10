@@ -11,7 +11,32 @@
       "bgBlur": 0,
       "bgOpacity": 0.5,
       "cardStyle": "glass",
-      "blocks": []
+      "blocks": [
+        {
+          "id": "1770735271833",
+          "icon": "vk",
+          "customIcon": "",
+          "title": "Новая ссылка",
+          "url": "https://",
+          "on": true
+        },
+        {
+          "id": "1770735278759",
+          "icon": "telegram",
+          "customIcon": "",
+          "title": "Новая ссылка",
+          "url": "https://",
+          "on": true
+        },
+        {
+          "id": "1770735281568",
+          "icon": "spotify",
+          "customIcon": "",
+          "title": "Новая ссылка",
+          "url": "https://",
+          "on": true
+        }
+      ]
     }
   ]
 }
