@@ -1,0 +1,17 @@
+{
+  "profiles": [
+    {
+      "id": "gleb", "slug": "gleb",
+      "name": "Глеб Картер", "bio": "Музыкант • Продюсер • Автор", "avatar": "",
+      "theme": "midnight", "customBg": "", "bgBlur": 0, "bgOpacity": 0.5, "cardStyle": "glass",
+      "blocks": [
+        { "id": "1", "icon": "vk", "customIcon": "", "title": "VK", "url": "https://vk.com/", "on": true },
+        { "id": "2", "icon": "telegram", "customIcon": "", "title": "Telegram", "url": "https://t.me/", "on": true },
+        { "id": "3", "icon": "yandex", "customIcon": "", "title": "Яндекс Музыка", "url": "https://music.yandex.ru/", "on": true },
+        { "id": "4", "icon": "instagram", "customIcon": "", "title": "Instagram", "url": "https://instagram.com/", "on": true },
+        { "id": "5", "icon": "youtube", "customIcon": "", "title": "YouTube", "url": "https://youtube.com/", "on": true },
+        { "id": "6", "icon": "tiktok", "customIcon": "", "title": "TikTok", "url": "https://tiktok.com/", "on": true }
+      ]
+    }
+  ]
+}
